@@ -1,59 +1,99 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Sistem Log Harian Pegawai - Pemerintah Daerah X
 
-## About Laravel
+## Deskripsi
+Aplikasi ini adalah sistem log harian pegawai berbasis Laravel API dan React (Vite) untuk Pemerintah Daerah X. Setiap pegawai dapat menginput log harian, diverifikasi atasan sesuai struktur organisasi.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Utama
+- CRUD log harian pegawai
+- Status log: Pending, Disetujui, Ditolak
+- Verifikasi log oleh atasan langsung
+- Statistik dashboard
+- Visualisasi struktur organisasi
+- Responsive design
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Struktur Pegawai (Sample)
+- Kepala Dinas
+  - Kepala Bidang 1
+    - Staff 1
+  - Kepala Bidang 2
+    - Staff 2
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Akun Demo
+| Posisi            | Email                        | Password     |
+|-------------------|-----------------------------|--------------|
+| Kepala Dinas      | kepala.dinas@pemda.go.id    | password123  |
+| Kepala Bidang 1   | kepala.bidang1@pemda.go.id  | password123  |
+| Kepala Bidang 2   | kepala.bidang2@pemda.go.id  | password123  |
+| Staff Bidang 1    | staff1@pemda.go.id          | password123  |
+| Staff Bidang 2    | staff2@pemda.go.id          | password123  |
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Cara Menjalankan dengan Docker Compose
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Pastikan sudah terinstall:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Laravel Sponsors
+### 2. Jalankan perintah berikut di folder project:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+docker compose up --build
+```
 
-### Premium Partners
+- Backend Laravel akan berjalan di: http://localhost:8000
+- Frontend React akan berjalan di: http://localhost:5173
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Catatan: Anda tidak perlu membuka URL backend (http://localhost:8000) di browser. Backend cukup berjalan sebagai API, dan frontend (http://localhost:5173) akan melakukan request ke API tersebut.
 
-## Contributing
+### 3. Login ke aplikasi
+Buka browser ke http://localhost:5173 dan login menggunakan salah satu akun demo di atas.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Fitur Utama
+- **Log Harian:** Tambah/edit/hapus log harian, status otomatis "Pending".
+- **Verifikasi:** Atasan dapat menyetujui/menolak log bawahan.
+- **Struktur Organisasi:** Lihat hierarki pegawai.
+- **Dashboard:** Statistik log dan verifikasi.
 
-## Code of Conduct
+### 5. Reset Data
+Setiap kali container backend dijalankan, database akan di-reset dan diisi data sample otomatis.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Troubleshooting Docker
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Jika muncul error `client version 1.43 is too old...`:
+  - Itu biasanya karena Anda menjalankan binary lama `docker-compose` (pakai tanda minus).
+  - Solusi: gunakan `docker compose` (pakai spasi) seperti di atas.
 
-## License
+- Jika muncul error `docker-credential-desktop: executable file not found` saat build/pull image:
+  - Penyebab: konfigurasi Docker menggunakan credential helper `desktop`.
+  - Solusi cepat: edit file `~/.docker/config.json` lalu hapus baris `"credsStore": "desktop"`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Pengembangan Lokal (Opsional)
+Jika ingin menjalankan tanpa Docker:
+
+### Backend
+```bash
+cd tugas1
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate:fresh --seed
+php artisan serve
+```
+
+### Frontend
+```bash
+cd tugas1/frontend
+bun install # atau npm install
+bun run dev # atau npm run dev
+```
+
+---
+
+## Lisensi
+MIT
