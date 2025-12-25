@@ -59,19 +59,6 @@ Buka browser ke http://localhost:5173 dan login menggunakan salah satu akun demo
 ### 5. Reset Data
 Setiap kali container backend dijalankan, database akan di-reset dan diisi data sample otomatis.
 
----
-
-## Troubleshooting Docker
-
-- Jika muncul error `client version 1.43 is too old...`:
-  - Itu biasanya karena Anda menjalankan binary lama `docker-compose` (pakai tanda minus).
-  - Solusi: gunakan `docker compose` (pakai spasi) seperti di atas.
-
-- Jika muncul error `docker-credential-desktop: executable file not found` saat build/pull image:
-  - Penyebab: konfigurasi Docker menggunakan credential helper `desktop`.
-  - Solusi cepat: edit file `~/.docker/config.json` lalu hapus baris `"credsStore": "desktop"`.
-
----
 
 ## Pengembangan Lokal (Opsional)
 Jika ingin menjalankan tanpa Docker:
